@@ -77,18 +77,32 @@ const restart = () => {
 
 const handleEnding = (score) => {
   let ending = '';
-  if (score <= 20) {
+  if (score < 0) {
     ending =
-      'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the code. \nYou want a team built on trust. \nThis way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand which problem each person can work on best for the team to make solid progress. \nYou can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
+    `Hmmm, you're a Mystery Coder.
+    
+    As enigmatic as the thoughts you think.
+
+    You prefer working solo most of the time, but there are times when team work appeals to you.
+    You don't get stuck on problems too often, but when you do, you're stuck for a long time.
+    And sometimes, your code is ingenious. But othertimes, it barely holds itself together...
+
+    Northcoders is where you can take your code to the next level.
+
+    Snag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...
+    `
+  } else if (score <= 20) {
+    ending =
+      'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the code. \nYou want a team built on trust. \nThis way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand which problem each person can work on best for the team to make solid progress. \nYou can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
   } else if (score <= 40) {
     ending =
-      'Coding for you is a well-oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur that no one else can solve, \nkeeping the test suite well organised and functioning, \nand adding reliable code to the project.\nTo develop your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
+      'Coding for you is a well-oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur that no one else can solve, \nkeeping the test suite well organised and functioning, \nand adding reliable code to the project.\nTo develop your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
   } else if (score <= 60) {
     ending =
-      'As a trailblazer, your approach to a challenge is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear. \nYou can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
+      'As a trailblazer, your approach to a challenge is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear. \nYou can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
   } else {
     ending =
-      'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a team, you help by anticipating problems that will arise as you build a project, \nYou help explain the code you and others have written broadening others learning, \nand by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
+      'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a team, you help by anticipating problems that will arise as you build a project, \nYou help explain the code you and others have written broadening others learning, \nand by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
   }
   document.getElementById('input').style.display = 'block';
   showHighScores();
@@ -440,8 +454,8 @@ const scenarios = {
   ),
   reveal: createScenario(
     'You piece together all the disjointed letters you’ve discovered… They spell out 1 name…\nRATHBONE…\nJonny, hearing his name being called from miles away, calls you on zoom... \n“We’ve been watching you. The true purpose of this adventure was to understand your coding style…”\nYou’ve been soul-searching for so long, and are relieved to have finally found your true coding style. The one and only truth.\nDo you find out and discover a world outside of Microsoft Windows… or, keep the information in Pandora’s box...',
-    [createOption('personality results', '', null)],
-    [createOption('Keeping it hush', '', null, -100)],
+    [createOption('Discover Yourself...', '', null),
+    createOption('Bury it in Shame', '', null, -100)],
   ),
 };
 
