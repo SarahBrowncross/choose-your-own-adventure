@@ -274,8 +274,9 @@ const scenarios = {
         'Eat some cereal!',
         'You realised that breakfast was only 30 minutes ago and you are STARVING. You copy the hobbits’ idea and break for elevensies, as you pour your cereal, the letter “H” falls from the packet',
         'kata_time',
+      ),
         createOption(
-          'Talk to one of the tutors as you get a drink of water.',
+          'Talk to one of the tutors as you get a drink of water',
           'You talk to the tutor who is having a nip of vodka, they’re not having a good day. In their drunken haze they spill the beans… You get the letter “H”,',
           'kata_time',
         ),
@@ -284,7 +285,7 @@ const scenarios = {
           'Your late night has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “H”',
           'kata_time',
         ),
-      ),
+      ,
     ],
   ),
 
@@ -335,13 +336,13 @@ const scenarios = {
       ),
       createOption(
         'Continue with the katas, there may be more information hidden in them',
-        'You wade through the kata’s, knowing there must be a clue somewhere. And there is, hidden deep in the testing file the letter “N”. No one would’ve checked there!',
+        'You wade through the kata’s, knowing there must be a clue somewhere. And there is, hidden deep in the testing file the letter “O”. No one would’ve checked there!',
         'seminar_grp',
         4,
       ),
       createOption(
         'Investigate your suspects on the internet and police database',
-        'You know research is the key, you crack out your usernames and passwords. The tutors can’t hide from your sleuthing skills. On the police database, an unusual suspect associated with Northcoders… The letter “N”.',
+        'You know research is the key, you crack out your usernames and passwords. The tutors can’t hide from your sleuthing skills. On the police database, an unusual suspect associated with Northcoders… The letter “O”.',
         'seminar_grp',
         8,
       ),
@@ -349,11 +350,11 @@ const scenarios = {
   ),
 
   seminar_grp: createScenario(
-    "You're now attending a seminar session with your fellow mentees. A tutor is walking everyone through the solution of a difficult problem, you decide to participate by…",
+    "You're attending a seminar session with your fellow mentees. A tutor is walking everyone through the solution of a difficult problem from today, you decide to participate by…",
     [
       createOption(
-        'Giving any answer before anyone else, you must be first',
-        'You deliver answer after answer before anyone else. Your quick typing gets you ahead of everyone else. You’re sure that everyone knows who is best.',
+        'Giving any answer before anyone else, you must be first, who cares if it\'s right or wrong',
+        'You deliver answer after answer before anyone else. Your quick typing gets you ahead of everyone else. You’re sure that everyone knows who is best!',
         'extra_kata',
         6,
       ),
@@ -364,14 +365,14 @@ const scenarios = {
         4,
       ),
       createOption(
-        'Pasting a code snippet into chat that you’ve built',
-        'After noticing a few people struggling, you help them by giving some detailed answers to solidify their understanding. They’re grateful for your help.',
+        'Pasting a code snippet into chat that you’ve built alongside the lecture',
+        'You code alongside the zoom call, building your tests as well. Once you have written a water-tight function, you paste your code into chat, the tutors congratulate you on your coding prowess.',
         'extra_kata',
         8,
       ),
       createOption(
         'Engage in casual coding conversation in the chat',
-        'You engage with others in the chat, sharing jokes, and finding common ground whilst learning about the solution',
+        'You engage with others in the chat, sharing jokes, and finding common ground whilst learning about the solution, you follow a link to some cat memes! Good times :P',
         'extra_kata',
         2,
       ),
@@ -389,19 +390,19 @@ const scenarios = {
       ),
       createOption(
         'Ask other students if they have seen this variable and what’s inside it',
-        'You ask a few coders next to you, they tell you that it broke their work by replacing every character of code with an “N”.',
+        'You ask a few coders next to you, they tell you that it broke their work by replacing every character of their code with an “N”.',
         'round_up',
         2,
       ),
       createOption(
         'Test the variable to see if it is safe and useful',
-        'You construct some tests, not knowing how deep this problem could go. Your tests work and they reveal the single letter “N” in the terminal',
+        'You construct some tests, not knowing how deep this problem could go. Your tests work where each character of your tests is replaced with an "N"',
         'round_up',
         4,
       ),
       createOption(
         'Delete the variable, worry about the consequences later',
-        'You delete the variable, time to have some fun! You run the file and everything crashes. A giant “N” is frozen on your screen...',
+        'You delete the variable, time to have some fun! You run the file and everything crashes. As you reload your file, every character is now an "N"...',
         'round_up',
         6,
       ),
@@ -413,32 +414,32 @@ const scenarios = {
     [
       createOption(
         'Join the Zoom call and dig for more info from the tutors.',
-        'Gotcha! You get a tutor chatting in the roundup and they accidentally let slip the final letter... it\'s a "Y".',
+        'Gotcha! You get a tutor chatting in the roundup and they accidentally let slip the final letter... it\'s an "E".',
         'reveal',
         2,
       ),
       createOption(
         'Continue coding to find any hidden clues in the code',
-        "You crack on with the code, determined to find that final letter and as you’re wrapping up the last challenge of the sprint, you find one the final letter hidden in the code... 'Y'",
+        "You crack on with the code, determined to find that final letter and as you’re wrapping up the last challenge of the sprint, you find the final letter hidden... \"E\"",
         'reveal',
         4,
       ),
       createOption(
         'Research all the staff of Northcoders to deduce the culprit',
-        'You scour the Northcoders website, only one name matches your letters so far. You’re able to deduce the final letter..."Y"',
+        'You scour the Northcoders website, only one name matches all the letters so far. You deduce the final letter..."E"',
         'reveal',
         8,
       ),
       createOption(
         'Go to the tutors and challenge them on the evidence you have collected',
-        'You storm over to the tutors and you engage in a healthy discussion. You probe them about everything you’ve found ("All the evidence is against you!”) and under the pressure they give you the final letter... "Y"',
+        'You storm over to the tutors and you engage in a healthy argument. You probe them about everything you’ve found ("All the evidence is against you!”) and under the pressure they relent. The final letter is ... "E"',
         'reveal',
         6,
       ),
     ],
   ),
   reveal: createScenario(
-    'You piece together all the disjointed letters you’ve discovered… They spell out 1 name…\nRATHBONE…\nJonny calls on zoom... \n“We’ve been watching you. The true purpose of this adventure was to understand your coding style…”\nYou’ve been soul-searching for so long, and you have finally found your true coding style. The one and only truth.\nDo you find out and discover a world outside of Microsoft Windows… or, keep the information in Pandora’s box...',
+    'You piece together all the disjointed letters you’ve discovered… They spell out 1 name…\nRATHBONE…\nJonny, hearing his name being called from miles away, calls you on zoom... \n“We’ve been watching you. The true purpose of this adventure was to understand your coding style…”\nYou’ve been soul-searching for so long, and are relieved to have finally found your true coding style. The one and only truth.\nDo you find out and discover a world outside of Microsoft Windows… or, keep the information in Pandora’s box...',
     [createOption('personality results', '', null)],
     [createOption('Keeping it hush', '', null, -100)],
   ),
