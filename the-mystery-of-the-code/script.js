@@ -1,233 +1,453 @@
 const gameState = {
-	score: 0,
-}
-
-const textDiv = document.getElementById('text-div')
-const buttonDiv = document.getElementById('button-div')
-const scoreDiv = document.getElementById('score-div')
-const highscores = document.getElementById('highscores')
-
-document.getElementById('submit').addEventListener('click', (event) => {
-	event.preventDefault();
-	const name = document.getElementById('input-box').value
-	if (name !== '') {
-		fetch('https://untitled-northcoders-game.herokuapp.com/highscores', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				name: name,
-				score: gameState.score
-			})
-		})
-			.then((res) => res.json())
-			.then((scores) => {
-				highscores.innerHTML = ''
-				scores.forEach((score) => {
-					const scoreDiv = document.createElement('div')
-					scoreDiv.textContent = `Name: ${score.name}. Score: ${score.score}`
-					highscores.appendChild(scoreDiv)
-				})
-			})
-	}
-
-})
-
-const setScreen = (text, options, callback) => {
-	textDiv.textContent = text
-	buttonDiv.innerHTML = ''
-	options.forEach((option, i) => {
-		const button = document.createElement('button')
-		button.textContent = option
-		button.addEventListener('click', () => callback(i))
-		buttonDiv.appendChild(button)
-	})
-}
-
-const handleScenario = (scenarioID) => {
-	if (scenarioID === null) {
-		handleEnding(gameState.score)
-		return
-	}
-	const scenario = scenarios[scenarioID]
-
-	setScreen(
-		scenario.text,
-		scenario.options.map(option => option.text),
-		i => handleOption(scenario.options[i])
-	);
-}
-
-const handleOption = option => {
-	gameState.score += option.scoreChange
-	displayScore(gameState.score)
-	if (option.outcome === '') {
-		return handleScenario(option.next)
-	}
-	setScreen(
-		option.outcome,
-		['continue'],
-		() => handleScenario(option.next)
-	);
-}
-
-const restart = () => {
-	gameState.score = 0
-	displayScore(0)
-	highscores.innerHTML = ''
-	document.getElementById('input').style.display = 'none';
-	handleScenario('wake_up')
-}
-
-const handleEnding = score => {
-	let ending = ''
-	if (score < 20) {
-		ending = "You are a social coder. You love to work in a team and collaborate to get the job done. Coding would be perfect for you because software devs work in pairs to code and pull together as a team to get projects done. Find out more about a coding career at northcoders.com"
-	} else if (score < 40) {
-		ending = "You are a details coder. You love dotting all the i's and crossing all the t's. Coding would be perfect for you with your keen eyes for syntax errors and your willingness to unpick and debug any problem. Find out more about a coding career at northcoders.com"
-	} else if (score < 60) {
-		ending = "You are a trailblazing coder. You love a challenge and are not afraid to dig around to find the solution to get you to the answer the fastest. Coding would be perfect for you - there's always an exciting new challenge to tackle! Find out more about a coding career at northcoders.com"
-	} else {
-		ending = "You are a thinking coder. You love to mull on a problem in your head until the answer appears to you. Coding would be perfect for you because nothing beats those lightbulb moments when suddenly it all makes sense. Find out more about a coding career at northcoders.com"
-	}
-	document.getElementById('input').style.display = 'block';
-	showHighScores();
-	setScreen(
-		ending,
-		['Play again'],
-		restart
-	)
-}
-
-const showHighScores = () => {
-	fetch(
-		'https://untitled-northcoders-game.herokuapp.com/highscores'
-	)
-		.then((res) => res.json())
-		.then((scores) => {
-			scores.forEach((score) => {
-				const scoreDiv = document.createElement('div')
-				scoreDiv.textContent = `Name: ${score.name}. Score: ${score.score}`
-				highscores.appendChild(scoreDiv)
-			})
-		})
-}
-
-const displayScore = (score) => {
-	scoreDiv.textContent = `Score: ${score}`
-}
-
-const output = text => console.log(text);
-
-const createScenario = (text, options) => ({ text, options });
-const createOption = (text, outcome, next, scoreChange = 0) => ({ text, outcome, next, scoreChange });
-
-const scenarios = {
-	'wake_up': createScenario("Greetings Agent X. We have a new mission for you. We've detected a mysterious signal broadcasting out to space in central Manchester. It seems to be coming from Northcoders - a tech bootcamp organisation. Your mission is to infiltrate Northcoders and find out who has set off the signal. The safety of the Earth could depend on it. Are you ready to start?", [
-		createOption('Accept mission', "", 'mission_start')
-	]),
-	'mission_start': createScenario("Your first task is to disguise yourself as a typical Northcoders student. Which outfit will help you blend in best?", [
-		createOption('Comfort-first - patterned cardigan, joggers and some thick framed glasses.', "You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!", 'zoom_static', 8),
-		createOption('Dressed to impress - here to make an impression, you don your finest evening wear', "You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!", 'zoom_static', 6),
-		createOption("Practical - The weather's wild, it's time for some winter boots, woolly tights and a jazzy bobble hat.", 'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!', 'zoom_static', 4),
-		createOption("Coder-uniform - tee, branded hoody and some blue jeans, silicon valley eat your heart out", 'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!', 'zoom_static', 2)
-	]),
-	'zoom_static': createScenario("Someone posts a zoom link in slack. You dial in and find yourself in a lecture on the fundamentals of programming. As you slip your headphones on you hear a mysterious static in the background of the lecture. What do you do?", [
-		createOption('Turn the volume up, it sounds like it is “saying” something,', "You whack the volume up. It sounds like a thousand voices all chanting 'J! J! J!'. This could be a clue! You write it down in your notebook.", 'distracted', 4),
-		createOption('Scan through the faces to see who is unmuted', '', 'distracted', 6),
-		createOption('Post a message to the chat asking if anyone else can hear it', '', 'distracted', 2),
-		createOption('Wait. Something might be about to reveal itself', '', 'distracted', 8)
-	]),
-	'distracted': createScenario("You copy and paste the url into your browser and type in the password - you're in! You see a jumble of code and information on the screen in front of you but one button jumps out at you: master sketchbook settings...", [
-		createOption('close the window', "You lose your nerve and close the window. You make a cup of tea to calm yourself and by the time it's brewed it's time for the lecture to begin.", 'lecture_start'),
-		createOption('change the settings', 'You open up the master sketchbook settings and change the default colour to lime green and the style to caligraphy. Chuckling to yourself, you close the browser down and get ready to dial into the lecture', 'lecture_start_green', 5)
-	]),
-
-	'lecture_start': createScenario("You sit at your desk with your cat curled up on your lap. The lecture begins uneventfully. It's Alex teaching you react for the third time this week. He asks a question and you feel pretty confident on the answer. What do you do?", [
-		createOption('give the right answer', '', 'question_2'),
-		createOption('give the wrong answer', "Bad news! Alex is thrilled. 'Aha! That's exactly what I wanted you to say! It's actually a common misconception...' You lose 2 points. The lecture continues.", 'loading_screen', -2),
-		createOption('sit in silence', "Your silence allows someone else to chip in with the answer instead. The lecture continues", 'loading_screen')
-	]),
-
-	'lecture_start_crunchy': createScenario("You sit at your desk with your cat curled up on your lap. The lecture begins. It's Alex teaching you react for the third time this week. You leave your mic on and take a big bite of your cereal. Alex's intro is totally drowned out by the sound of crunching. The chat starts to fill with other students reporting audio issues. It takes him 5 minutes to find the controls, mute everyone and regain control of the class. It's a moderate success. You gain 2 points. He finally starts the lecture and asks a question. You feel pretty confident on the answer. What do you do?", [
-		createOption('give the right answer', '', 'question_2'),
-		createOption('give the wrong answer', "Bad news! Alex is thrilled. 'Aha! That's exactly what I wanted you to say! It's actually a common misconception...' You lose 2 points. The lecture continues", 'loading_screen', -2),
-		createOption('sit in silence', "Your silence allows someone else to chip in with the answer instead. The lecture continues", 'loading_screen')
-	]),
-
-	'lecture_start_green': createScenario("You sit at your desk with your cat curled up on your lap. The lecture begins. It's Alex teaching you react for the third time this week. He starts to draw out some code but your changes make it completely illegible. The chat starts to fill with other students saying they can't read it. It takes him 15 minutes to find the settings, switch them back to normal and regain control of the class. Success! You gain 5 points. He finally starts the lecture and asks a question. You feel pretty confident on the answer. What do you do?", [
-		createOption('give the right answer', '', 'question_2'),
-		createOption('give the wrong answer', "Bad news! Alex is thrilled. 'Aha! That's exactly what I wanted you to say! It's actually a common misconception...' You lose 2 points. The lecture continues", 'loading_screen', -2),
-		createOption('sit in silence', "Your silence allows someone else to chip in with the answer instead. The lecture continues", 'loading_screen')
-	]),
-
-	'question_2': createScenario("Alex thanks you for your great answer and asks another question. What do you do?", [
-		createOption('answer again', '', 'question_3'),
-		createOption('let someone else take a turn', "Someone else chips in. Alex thanks them. The lecture continues", 'loading_screen')
-	]),
-
-	'question_3': createScenario("Alex looks slightly uncomfortable. 'Another great answer' he says in a slightly strained voice. He asks another question. What do you do?", [
-		createOption('answer again', "You see the tension in Alex's face. 'Ummmmm, that's right again. Thanks.' He sees you open your mouth to answer a fourth question and he finally cracks: 'Maybe let someone else answer the next one' he sighs uncomfortably. Success! You gain 5 points.", 'loading_screen', 5),
-		createOption('let someone else take a turn', "Someone else chips in. Alex thanks them. The lecture continues", 'loading_screen')
-	]),
-
-	'loading_screen': createScenario("'So before we can load anything up, I'm going to need to install React', Alex says, typing the command into his terminal. The loading bar appears, creeps up to three percent, then 10 percent, then judders to a halt. Alex sighs. This could be a while, what do you do?", [
-		createOption('make a supportive comment in the zoom chat', "'look's like your computer's going at snail's pace this morning 🙁🙁', you type. 'wait, shouldn't it be tortoise pace?' somebody replies. The chat quickly devolves into a busy discussion about the slowest animal. React has finished installing but nobody is paying attention to the lecture anymore. 'Can everyone please concentrate', Alex pleads. Success! You gain 5 points", 'typo', 5),
-		createOption('make a cup of tea', "You make a cup of tea. By the time you've finished, React has finished installing and Alex has moved on", 'typo'),
-		createOption('start a slow clap', "You begin a clap but, as you start, the loading bar suddenly speeds up and the installation completes. The rest of the cohort think you're applauding Alex's success and joins in in a round of applause. 'Aww, thank you guys', Alex beams. You lose 5 points.", 'typo', -5)
-	]),
-
-	'typo': createScenario("Alex types out a lengthy React component with a state and multiple children. As he finishes up his render function, you spot a small typo in how he's called one of them. Do you point it out?", [
-		createOption('yes', "'Thank you!', Alex exclaims, 'Phew! That could have taken me ages to find.' You lose 2 points.", 'finished_code', -2),
-		createOption('no', '', 'finding_typo_1')
-	]),
-
-	'finding_typo_1': createScenario("Alex refreshes his live server and errors fill the screen. 'Oh no,' he growns 'I must have made a mistake somewhere.' He start scanning back through the pages of the code looking for the error. Do you help?", [
-		createOption("tell him it's in the render function", "With your help he locates the typo and fixes the code. What the hell are you doing? Did you not read the objectives of this game? Lose 10 points.", 'finished_code', -10),
-		createOption('stay silent', "It takes Alex 10 minutes of flicking back and forth through his vscode windows, anxiously sweating, before he finally finds the typo and fixes it. 'Ohhhh, I though it might be that', you say smugly. Alex shoots you a glare. You gain 5 points.", 'finished_code', 5)
-	]),
-
-	'finished_code': createScenario("It's the end of the lecture and Alex has just finished a complicated looking, really informative bit of code - the kind of thing that is going to be really useful during your sprint today. This is your final chance to cause chaos, which gambit do you choose?", [
-		createOption("adjust your speakers so they are pointing directly at your microphone", "the audio feedback creates a high pitched whine, but Alex is quick off the mark and mutes you. You distract everyone, but only for a moment. You gain 1 point", 'programming_start', 1),
-		createOption("unmute yourself, whack up your volume and take a screenshot", "Nice try, but this is an Alex lecture. He smiles and says 'yes, go ahead and screenshot it! This will help you later.' You lose 2 points.", 'programming_start', -2),
-		createOption("hold your cat up to the camera and snuggle with her, nose to nose", "The rest of the cohort loses their minds at the cuteness of the scene. The chat fills up with emojis and 'SQUEEEEEEEE'. Alex totally loses focus and forgets to wrap up the lecture. Chaos acheived! You gain 5 points.", 'programming_start', 5)
-	]),
-
-	'programming_start': createScenario("It's time to start coding. It's a solo sprint today so it's up to you and your nchelp requests to wear down the tutors. It's a busy day and they're going to have a lot of requests. How much of their time can you tie up with pointless errors? What's your first move", [
-		createOption('get cracking on some code', '', 'testing'),
-		createOption('nchelp', "Sam appears. He looks at your blank screen with an air of confusion. 'You haven't even downloaded the repo, there's nothing here for me to help with. Why don't you try and make a start by yourself'. He leaves. This round is not that easy. 0 points.", "programming_start")
-	]),
-
-	'testing': createScenario("You need to write some pretty complex utils functions. TDD could really help you create some clear code. Do you write any tests?", [
-		createOption('no tests. zero. zilch', '', 'no_tests'),
-		createOption('test everything', '', 'tests')
-	]),
-
-	'no_tests': createScenario("Surprise, surprise! Your code quickly becomes a quagmire of confusion where nothing works. What do you do?", [
-		createOption('nchelp', "David appears. He asks to see your tests and sighs in disgust when he realises you have none. 'I'm not helping you until you've written some test' he says and leaves. 0 points", 'no_tests'),
-		createOption('figure it out yourself', 'It takes you an hour but you finally unpick the problems and move on.', 'which_file'),
-		createOption('write some tests', '', 'tests')
-	]),
-
-	'tests': createScenario('You need to install jest to run your tests. Which operating system are you using?', [
-		createOption('Linux', 'It installs fine and you use your tests to create some functioning code', 'which_file'),
-		createOption('Mac', 'It installs fine and you use your tests to create some functioning code', 'which_file'),
-		createOption("WSL", 'As you install jest, a wall of errors appears. You nchelp and get David. It takes him 30 minutes of hard googling before he finally gives up and tells you to restart your computer. He leaves with a defeated look in his eyes. 10 points!', 'which_file', 10)
-	]),
-
-	'which_file': createScenario("Your code is coming along but it still doesn't really work. You decide to ask for help, but which file do you request assistance on?", [
-		createOption('tests', "Liam pops in. 'These tests look pretty good' he smiles. He helps you troubleshoot a couple of issues. You ask if you should run it to see if it works. 'Make it so!' he says, pointing at his camera. He leaves, grinning. Not a success. You lose 3 points.", 'mess_up_code', -3),
-		createOption('css', "Sam dials in. He sees the css in front of him and the colour drains from his face. 'Oh no', you hear him whisper under his breath. You make him stay for 40 minutes, asking questions about position: relative. He is almost crying as he exits the call. Well done! 10 points.", 'mess_up_code', 10)
-	]),
-
-	'mess_up_code': createScenario("You've created some fully functioning code. This will not do! There are still 30 minutes left until the roundup. How do you mess up your code before you put in your final nchelp?", [
-		createOption("replace all your maps with forEach", 'Pretty good! It takes a tired Jim 20 minutes to find all your arrays and help you rewrite them all as maps. You gain 5 points', null, 5),
-		createOption("remove all return statements", 'Haz spots your little trick straight away. It takes her less than 5 minutes to put your code back together and be on her way. You lose 2 points', null, -2),
-		createOption("use object destructuring on all your module exports but none of your requires", 'A masterstroke! It takes Izzy the full 30 minutes, jumping back and forth through your poorly organised file system to find and correct every export. She leaves just before the roundup, eyes glazed. You gain 10 points', null, 10)
-	]),
-
-
+  score: 0,
 };
 
-handleScenario('wake_up')
+const textDiv = document.getElementById('text-div');
+const buttonDiv = document.getElementById('button-div');
+const scoreDiv = document.getElementById('score-div');
+const highscores = document.getElementById('highscores');
+
+document.getElementById('submit').addEventListener('click', (event) => {
+  event.preventDefault();
+  const name = document.getElementById('input-box').value;
+  if (name !== '') {
+    fetch('https://untitled-northcoders-game.herokuapp.com/highscores', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: name,
+        score: gameState.score,
+      }),
+    })
+      .then((res) => res.json())
+      .then((scores) => {
+        highscores.innerHTML = '';
+        scores.forEach((score) => {
+          const scoreDiv = document.createElement('div');
+          scoreDiv.textContent = `Name: ${score.name}. Score: ${score.score}`;
+          highscores.appendChild(scoreDiv);
+        });
+      });
+  }
+});
+
+const setScreen = (text, options, callback) => {
+  textDiv.textContent = text;
+  buttonDiv.innerHTML = '';
+  options.forEach((option, i) => {
+    const button = document.createElement('button');
+    button.textContent = option;
+    button.addEventListener('click', () => callback(i));
+    buttonDiv.appendChild(button);
+  });
+};
+
+const handleScenario = (scenarioID) => {
+  if (scenarioID === null) {
+    handleEnding(gameState.score);
+    return;
+  }
+  const scenario = scenarios[scenarioID];
+
+  setScreen(
+    scenario.text,
+    scenario.options.map((option) => option.text),
+    (i) => handleOption(scenario.options[i]),
+  );
+};
+
+const handleOption = (option) => {
+  gameState.score += option.scoreChange;
+  displayScore(gameState.score);
+  if (option.outcome === '') {
+    return handleScenario(option.next);
+  }
+  setScreen(option.outcome, ['continue'], () => handleScenario(option.next));
+};
+
+const restart = () => {
+  gameState.score = 0;
+  displayScore(0);
+  highscores.innerHTML = '';
+  document.getElementById('input').style.display = 'none';
+  handleScenario('wake_up');
+};
+
+const handleEnding = (score) => {
+  let ending = '';
+  if (score < 20) {
+    ending =
+      'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the task. You want a team built on trust. This way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand the best problems for people to work on for the team to make solid progress. You can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions\n Find out more about a coding career at northcoders.com';
+  } else if (score < 40) {
+    ending =
+      'Coding for you is a well oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur, keeping the test suite organised and functioning, and adding reliable code to the project.\nTo add to your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code\n Find out more about a coding career at northcoders.com';
+  } else if (score < 60) {
+    ending =
+      'As a trailblazer, your approach to code is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the fallout later, if there is any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear.You can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nFind out more about a coding career at northcoders.com';
+  } else {
+    ending =
+      'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a group, you help by anticipating problems that will arise as you build a project, explaining the code you and others have written, and by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\n Find out more about a coding career at northcoders.com';
+  }
+  document.getElementById('input').style.display = 'block';
+  showHighScores();
+  setScreen(ending, ['Play again'], restart);
+};
+
+const showHighScores = () => {
+  fetch('https://untitled-northcoders-game.herokuapp.com/highscores')
+    .then((res) => res.json())
+    .then((scores) => {
+      scores.forEach((score) => {
+        const scoreDiv = document.createElement('div');
+        scoreDiv.textContent = `Name: ${score.name}. Score: ${score.score}`;
+        highscores.appendChild(scoreDiv);
+      });
+    });
+};
+
+const displayScore = (score) => {
+  scoreDiv.textContent = `Score: ${score}`;
+};
+
+const output = (text) => console.log(text);
+
+const createScenario = (text, options) => ({ text, options });
+const createOption = (text, outcome, next, scoreChange = 0) => ({
+  text,
+  outcome,
+  next,
+  scoreChange,
+});
+
+const scenarios = {
+  wake_up: createScenario(
+    "Greetings Agent X. We have a new mission for you. We've detected a mysterious signal broadcasting out to space in central Manchester. It seems to be coming from Northcoders - a tech bootcamp organisation. Your mission is to infiltrate Northcoders and find out who has set off the signal. The safety of the Earth could depend on it. Are you ready to start?",
+    [createOption('Accept mission', '', 'mission_start')],
+  ),
+
+  precourse: createScenario(
+    'You’ve been given some tasks to do before you start at Northcoders. Your first desire is...',
+    [
+      createOption(
+        'Do it all in one day, you have the need for speed.',
+        'You blitz out all the pre-course in 20 hours, you learn a lot and feel better prepared for the course, but you stumbled across an out of place letter… “R”',
+        'mission_start',
+        6,
+      ),
+      createOption(
+        'Join the slack channels and code along with other Northcoder starters.',
+        'You chat among the slack channels as you work through the problems… Someone posts about a weird letter cropping up, a single letter “R”',
+        'mission_start',
+        2,
+      ),
+      createOption(
+        'Delve into documentation to solve all these new challenges.',
+        'You digest all the docs you can to solve the problems effectively… However, in your brilliant solutions, you stumble across the rogue letter “R”',
+        'mission_start',
+        4,
+      ),
+      createOption(
+        'Carefully examine the tasks, breaking them down into smaller workloads to do each day.',
+        'You review and break down the repo into chunks, as you work through it on a daily basis, you see the letter “R” in a weird place...',
+        'mission_start',
+        8,
+      ),
+    ],
+  ),
+
+  mission_start: createScenario(
+    'Your first task is to disguise yourself as a typical Northcoders student. Which outfit will help you blend in best?',
+    [
+      createOption(
+        'Comfort-first - patterned cardigan, joggers and some thick framed glasses.',
+        'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!',
+        'zoom_static',
+        8,
+      ),
+      createOption(
+        'Dressed to impress - here to make an impression, you don your finest evening wear',
+        'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!',
+        'zoom_static',
+        6,
+      ),
+      createOption(
+        "Practical - The weather's wild, it's time for some winter boots, woolly tights and a jazzy bobble hat.",
+        'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!',
+        'zoom_static',
+        4,
+      ),
+      createOption(
+        'Coder-uniform - tee, branded hoody and some blue jeans, silicon valley eat your heart out',
+        'You arrive for your first day to find you fit in perfectly. In fact, the students there are wearing everything from an animal print onesie to a three piece suit. What is this strange place where everyone feels at home? Time to investigate!',
+        'zoom_static',
+        2,
+      ),
+    ],
+  ),
+  zoom_static: createScenario(
+    'Someone posts a zoom link in slack. You dial in and find yourself in a lecture on the fundamentals of programming. As you slip your headphones on you hear a mysterious static in the background of the lecture. What do you do?',
+    [
+      createOption(
+        'Turn the volume up, it sounds like it is “saying” something,',
+        "You whack the volume up. It sounds like a thousand voices all chanting 'J! J! J!'. This could be a clue! You write it down in your notebook.",
+        'distracted',
+        4,
+      ),
+      createOption(
+        'Scan through the faces to see who is unmuted',
+        '',
+        'distracted',
+        6,
+      ),
+      createOption(
+        'Post a message to the chat asking if anyone else can hear it',
+        '',
+        'distracted',
+        2,
+      ),
+      createOption(
+        'Wait. Something might be about to reveal itself',
+        '',
+        'distracted',
+        8,
+      ),
+    ],
+  ),
+  distracted: createScenario(
+    "You copy and paste the url into your browser and type in the password - you're in! You see a jumble of code and information on the screen in front of you but one button jumps out at you: master sketchbook settings...",
+    [
+      createOption(
+        'close the window',
+        "You lose your nerve and close the window. You make a cup of tea to calm yourself and by the time it's brewed it's time for the lecture to begin.",
+        'lecture',
+      ),
+      createOption(
+        'change the settings',
+        'You open up the master sketchbook settings and change the default colour to lime green and the style to caligraphy. Chuckling to yourself, you close the browser down and get ready to dial into the lecture',
+        'lecture',
+        5,
+      ),
+    ],
+  ),
+
+  lecture: createScenario(
+    'You see the mysterious symbol in the background on one of the tutor’s zoom screens, what do you do?',
+    [
+      createOption(
+        'Drop them a direct message',
+        'Your dm is worded like a court order, in the tutor’s terror they accidently send back an entire email with one letter inside… “T”',
+        'tea_break',
+        6,
+      ),
+      createOption(
+        'Pin their video, zoom and enhance their picture to see the symbol',
+        'Your powerful detective skills let you screenshot and enhance the photo… You’re living the CSI dream. You uncover the letter “T”',
+        'tea_break',
+        8,
+      ),
+      createOption(
+        'Take a screenshot and send it to your primary school art teacher for more thoughts',
+        'You aren’t skilled enough to enhance your screenshot, so you call for reinforcements from you Primary school art teacher. They have the message back to you in 15 minutes! The letter “T”',
+        'tea_break',
+        2,
+      ),
+      createOption(
+        'Magically code up some image detecting software to find the source of/translate the symbol',
+        'You trust your skills to whip up a image enhancing algorithm… you create 3 months of code in 15 minutes and reveal the letter “T”',
+        'tea_break',
+        4,
+      ),
+    ],
+  ),
+
+  tea_break: createScenario(
+    "It's tea break time, a moment for everyone to stretch their legs and have a short break from the screen. And for you it's a chance to...",
+    [
+      createOption(
+        'Get a cup of tea from the kitchen',
+        'Your thirsty and get your favourite beverage and pour it into a mug. The heat causes the mug to reveal a hidden message, a “J” printed on the side…',
+        'kata_time',
+      ),
+      createOption(
+        'Eat some cereal!',
+        'You realised that breakfast was only 30 minutes ago and you are STARVING. You copy the hobbit’s idea and break for elevensies, as you pour your cereal, the letter “J” falls out of the packet',
+        'kata_time',
+        createOption(
+          'Talk to one of the tutors as you get a drink of water.',
+          'You talk to the tutor who is having a nip of vodka, they’re not having a good day. In their drunken haze they spill the beans… You get the letter “J”,',
+          'kata_time',
+        ),
+        createOption(
+          'Have a nap on one of the beanbags',
+          'Your late night has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “J”',
+          'kata_time',
+        ),
+      ),
+    ],
+  ),
+
+  kata_time: createScenario(
+    'After the lecture, the tutor team have given you a list of problems to solve… But you can’t focus on them just yet, you have to find the inside source. Do you…',
+    [
+      createOption(
+        'Call Northcoders Help Line (NCHelp) and interrogate the tutors?',
+        'After a short while, a couple of tutors show up on your zoom call. You ask them questions about the strange goings on. In this “Spanish Inquisition” you learn about the next letter “O”...',
+        'lunch',
+        6,
+      ),
+      createOption(
+        'Complete the katas and look for more clues in the questions?',
+        'You’re keen sense of sniffing out bullshit/clues has rewarded you… A hidden JSON file has the letter “O” inside.',
+        'lunch',
+        4,
+      ),
+      createOption(
+        'Ask other students about anything strange happening at Northcoders?',
+        'You see a few students who have been on the course for longer, you strike up a conversation and ask them if they have seen anything strange. They say there was a big “O” in the office when they started…',
+        'lunch',
+        2,
+      ),
+      createOption(
+        'Sit and ponder the evidence you have, narrowing down your list of suspects',
+        'As you sit, scratching your head, inspiration hits! A circular pillow has crashed into you… The next clue, an “O”...',
+        'lunch',
+        8,
+      ),
+    ],
+  ),
+
+  lunch: createScenario(
+    'Your efforts are getting you closer to the right person, although there is still so much left to solve… Your stomach growls. 1pm. Lunch is here… But we still need to crack this case. You...',
+    [
+      createOption(
+        'Wait for the tutors to leave and rummage through their belongings to find clues',
+        'After breaking the law on numerous occasions, you finally find what you are looking for… A 30cm, gold plated “N”, one step closer to the source (and riches!)...',
+        'seminar_grp',
+        6,
+      ),
+      createOption(
+        'Leave with the tutors and wait for any slips of the tongue',
+        'You join the tutors for lunch, but they’re tongue tied… Alcohol is the solution on this occasion. You get the tutors drunk and fumble out the letter “N”...',
+        'seminar_grp',
+        2,
+      ),
+      createOption(
+        'Continue with the katas, there may be more information hidden in them',
+        'You wade through the kata’s, knowing there must be a clue somewhere. And there is, hidden deep in the testing file the letter “N”. No one would’ve checked there!',
+        'seminar_grp',
+        4,
+      ),
+      createOption(
+        'Investigate your suspects on the internet and police database',
+        'You know research is the key, you crack out your usernames and passwords. The tutors can’t hide from your sleuthing skills. On the police database, an unusual suspect associated with Northcoders… The letter “N”.',
+        'seminar_grp',
+        8,
+      ),
+    ],
+  ),
+
+  seminar_grp: createScenario(
+    "You're now attending a seminar session with your fellow mentees. A tutor is walking everyone through the solution of a difficult problem, you decide to participate by…",
+    [
+      createOption(
+        'Giving any answer before anyone else, you must be first',
+        'You deliver answer after answer before anyone else. Your quick typing gets you ahead of everyone else. You’re sure that everyone knows who is best.',
+        'extra_kata',
+        6,
+      ),
+      createOption(
+        'Answering other people’s questions in chat',
+        'After noticing a few people struggling, you help them by giving some detailed answers to solidify their understanding. They’re grateful for your help.',
+        'extra_kata',
+        4,
+      ),
+      createOption(
+        'Pasting a code snippet into chat that you’ve built',
+        'After noticing a few people struggling, you help them by giving some detailed answers to solidify their understanding. They’re grateful for your help.',
+        'extra_kata',
+        8,
+      ),
+      createOption(
+        'Engage in casual coding conversation in the chat',
+        'You engage with others in the chat, sharing jokes, and finding common ground whilst learning about the solution',
+        'extra_kata',
+        2,
+      ),
+    ],
+  ),
+
+  extra_kata: createScenario(
+    'Looking through the files you come across a variable called “doNotDelete”, so naturally your first instinct is to…',
+    [
+      createOption(
+        'Console.log() the variable and see what it is',
+        'You wrap console.log() around the variable and run the file. A string appears in the terminal… an endless list of “N”s…',
+        'round_up',
+        8,
+      ),
+      createOption(
+        'Ask other students if they have seen this variable and what’s inside it',
+        'You ask a few coders next to you, they tell you that it broke their work by replacing every character of code with an “N”.',
+        'round_up',
+        2,
+      ),
+      createOption(
+        'Test the variable to see if it is safe and useful',
+        'You construct some tests, not knowing how deep this problem could go. Your tests work and they reveal the single letter “N” in the terminal',
+        'round_up',
+        4,
+      ),
+      createOption(
+        'Delete the variable, worry about the consequences later',
+        'You delete the variable, time to have some fun! You run the file and everything crashes. A giant “N” is frozen on your screen...',
+        'round_up',
+        6,
+      ),
+    ],
+  ),
+
+  round_up: createScenario(
+    "It's the end of the day and the tutors have called for a round up to see how everyone's found the day. You decide to...",
+    [
+      createOption(
+        'Join the Zoom call and dig for more info from the tutors.',
+        'Gotcha! You get a tutor chatting in the roundup and they accidentally let slip the final letter... it\'s a "Y".',
+        reveal,
+        2,
+      ),
+      createOption(
+        'Continue coding to find any hidden clues in the code',
+        "You crack on with the code, determined to find that final letter and as you’re wrapping up the last challenge of the sprint, you find one the final letter hidden in the code... 'Y'",
+        reveal,
+        4,
+      ),
+      createOption(
+        'Research all the staff of Northcoders to deduce the culprit',
+        'You scour the Northcoders website, only one name matches your letters so far. You’re able to deduce the final letter..."Y"',
+        reveal,
+        8,
+      ),
+      createOption(
+        'Go to the tutors and challenge them on the evidence you have collected',
+        'You storm over to the tutors and you engage in a healthy discussion. You probe them about everything you’ve found ("All the evidence is against you!”) and under the pressure they give you the final letter... "Y"',
+        reveal,
+        6,
+      ),
+    ],
+  ),
+  reveal: createScenario(
+    'You piece together all the disjointed letters you’ve discovered… They spell out 1 name…\nRATHBONE…\nJonny calls on zoom... \n“We’ve been watching you. The true purpose of this adventure was to understand your coding style…”\nYou’ve been soul-searching for so long, and you have finally found your true coding style. The one and only truth.\nDo you find out and discover a world outside of Microsoft Windows… or, keep the information in Pandora’s box...',
+    [createOption('personality results', '', null)],
+    [createOption('Keeping it hush', '', null, -100)],
+  ),
+};
+
+/*
+ - Reveal tutor 
+ - Reveal results
+
+*/
+
+handleScenario('wake_up');
