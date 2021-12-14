@@ -77,15 +77,15 @@ const restart = () => {
 
 const handleEnding = (score) => {
   let ending = '';
-  if (score < 20) {
+  if (score <= 20) {
     ending =
       'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the task. You want a team built on trust. This way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand the best problems for people to work on for the team to make solid progress. You can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions\n Find out more about a coding career at northcoders.com';
-  } else if (score < 40) {
+  } else if (score <= 40) {
     ending =
       'Coding for you is a well oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur, keeping the test suite organised and functioning, and adding reliable code to the project.\nTo add to your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code\n Find out more about a coding career at northcoders.com';
-  } else if (score < 60) {
+  } else if (score <= 60) {
     ending =
-      'As a trailblazer, your approach to code is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the fallout later, if there is any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear.You can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nFind out more about a coding career at northcoders.com';
+      'As a trailblazer, your approach to code is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear.You can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nFind out more about a coding career at northcoders.com';
   } else {
     ending =
       'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a group, you help by anticipating problems that will arise as you build a project, explaining the code you and others have written, and by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\n Find out more about a coding career at northcoders.com';
@@ -124,7 +124,7 @@ const createOption = (text, outcome, next, scoreChange = 0) => ({
 const scenarios = {
   wake_up: createScenario(
     "Greetings Agent X. We have a new mission for you. We've detected a mysterious signal broadcasting out to space in central Manchester. It seems to be coming from Northcoders - a tech bootcamp organisation. Your mission is to infiltrate Northcoders and find out who has set off the signal. The safety of the Earth could depend on it. Are you ready to start?",
-    [createOption('Accept mission', '', 'mission_start')],
+    [createOption('Accept mission', '', 'precourse')],
   ),
 
   precourse: createScenario(
@@ -414,25 +414,25 @@ const scenarios = {
       createOption(
         'Join the Zoom call and dig for more info from the tutors.',
         'Gotcha! You get a tutor chatting in the roundup and they accidentally let slip the final letter... it\'s a "Y".',
-        reveal,
+        'reveal',
         2,
       ),
       createOption(
         'Continue coding to find any hidden clues in the code',
         "You crack on with the code, determined to find that final letter and as you’re wrapping up the last challenge of the sprint, you find one the final letter hidden in the code... 'Y'",
-        reveal,
+        'reveal',
         4,
       ),
       createOption(
         'Research all the staff of Northcoders to deduce the culprit',
         'You scour the Northcoders website, only one name matches your letters so far. You’re able to deduce the final letter..."Y"',
-        reveal,
+        'reveal',
         8,
       ),
       createOption(
         'Go to the tutors and challenge them on the evidence you have collected',
         'You storm over to the tutors and you engage in a healthy discussion. You probe them about everything you’ve found ("All the evidence is against you!”) and under the pressure they give you the final letter... "Y"',
-        reveal,
+        'reveal',
         6,
       ),
     ],
@@ -450,4 +450,6 @@ const scenarios = {
 
 */
 
-handleScenario('wake_up');
+// handleScenario("wake_up");
+handleScenario("precourse");
+
