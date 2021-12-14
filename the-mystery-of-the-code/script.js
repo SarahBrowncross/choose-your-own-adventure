@@ -79,16 +79,16 @@ const handleEnding = (score) => {
   let ending = '';
   if (score <= 20) {
     ending =
-      'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the task. You want a team built on trust. This way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand the best problems for people to work on for the team to make solid progress. You can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions\n Find out more about a coding career at northcoders.com';
+      'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the code. \nYou want a team built on trust. \nThis way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand which problem each person can work on best for the team to make solid progress. \nYou can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
   } else if (score <= 40) {
     ending =
-      'Coding for you is a well oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur, keeping the test suite organised and functioning, and adding reliable code to the project.\nTo add to your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code\n Find out more about a coding career at northcoders.com';
+      'Coding for you is a well-oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur that no one else can solve, \nkeeping the test suite well organised and functioning, \nand adding reliable code to the project.\nTo develop your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
   } else if (score <= 60) {
     ending =
-      'As a trailblazer, your approach to code is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear.You can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nFind out more about a coding career at northcoders.com';
+      'As a trailblazer, your approach to a challenge is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear. \nYou can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
   } else {
     ending =
-      'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a group, you help by anticipating problems that will arise as you build a project, explaining the code you and others have written, and by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\n Find out more about a coding career at northcoders.com';
+      'You are the brains of the operation. You know what is needed before any code has been written. You have a plan of action ready and want to understand the code as deeply as possible. You are the sage of any group.\nIn a team, you help by anticipating problems that will arise as you build a project, \nYou help explain the code you and others have written broadening others learning, \nand by using creative solutions to solve code in a more efficient and effective way.\nTo deepen your understanding:\nPair programming will help you see things from a different perspective,\nTDD will ensure that your solutions do work the way you intend!\nSnag your free preparation resources. Tips, tricks and content to ace your entry challenge...';
   }
   document.getElementById('input').style.display = 'block';
   showHighScores();
@@ -108,7 +108,7 @@ const showHighScores = () => {
 };
 
 const displayScore = (score) => {
-  scoreDiv.textContent = `Score: ${score}`;
+  scoreDiv.textContent = ``;
 };
 
 const output = (text) => console.log(text);
@@ -191,49 +191,49 @@ const scenarios = {
     [
       createOption(
         'Turn the volume up, it sounds like it is “saying” something,',
-        "You whack the volume up. It sounds like a thousand voices all chanting 'J! J! J!'. This could be a clue! You write it down in your notebook.",
-        'distracted',
+        "You whack the volume up. It sounds like the cast of Lord of the Rings all chanting 'A! A! A!'. This could be a clue! You write it down in your notebook.",
+        'lecture',
         4,
       ),
       createOption(
         'Scan through the faces to see who is unmuted',
-        '',
-        'distracted',
+        'You flick through the names, and see the static culprit, you search for them on slack to only see the letter “A” instead of their name…',
+        'lecture',
         6,
       ),
       createOption(
         'Post a message to the chat asking if anyone else can hear it',
-        '',
-        'distracted',
+        'Your message grabs the attentions of the culprit! The static stops and they quickly type their apology… Their name, a single “A”,',
+        'lecture',
         2,
       ),
       createOption(
-        'Wait. Something might be about to reveal itself',
-        '',
-        'distracted',
+        'Wait for someone else to mention the horrible ear music',
+        'You wait. Almost instantly a tutor asks for the person with the username “A” to turn off their mic… Interesting...',
+        'lecture',
         8,
       ),
     ],
   ),
-  distracted: createScenario(
-    "You copy and paste the url into your browser and type in the password - you're in! You see a jumble of code and information on the screen in front of you but one button jumps out at you: master sketchbook settings...",
-    [
-      createOption(
-        'close the window',
-        "You lose your nerve and close the window. You make a cup of tea to calm yourself and by the time it's brewed it's time for the lecture to begin.",
-        'lecture',
-      ),
-      createOption(
-        'change the settings',
-        'You open up the master sketchbook settings and change the default colour to lime green and the style to caligraphy. Chuckling to yourself, you close the browser down and get ready to dial into the lecture',
-        'lecture',
-        5,
-      ),
-    ],
-  ),
+  // distracted: createScenario(
+  //   "You copy and paste the url into your browser and type in the password - you're in! You see a jumble of code and information on the screen in front of you but one button jumps out at you: master sketchbook settings...",
+  //   [
+  //     createOption(
+  //       'close the window',
+  //       "You lose your nerve and close the window. You make a cup of tea to calm yourself and by the time it's brewed it's time for the lecture to begin.",
+  //       'lecture',
+  //     ),
+  //     createOption(
+  //       'change the settings',
+  //       'You open up the master sketchbook settings and change the default colour to lime green and the style to caligraphy. Chuckling to yourself, you close the browser down and get ready to dial into the lecture',
+  //       'lecture',
+  //       5,
+  //     ),
+  //   ],
+  // ),
 
   lecture: createScenario(
-    'You see the mysterious symbol in the background on one of the tutor’s zoom screens, what do you do?',
+    'You see a mysterious symbol in the background on one of the tutor’s zoom screens, what do you do?',
     [
       createOption(
         'Drop them a direct message',
@@ -249,13 +249,13 @@ const scenarios = {
       ),
       createOption(
         'Take a screenshot and send it to your primary school art teacher for more thoughts',
-        'You aren’t skilled enough to enhance your screenshot, so you call for reinforcements from you Primary school art teacher. They have the message back to you in 15 minutes! The letter “T”',
+        'You aren’t skilled enough to enhance your screenshot, so you call for reinforcements from you Primary school art teacher. They  message you back in 15 minutes! The letter “T”',
         'tea_break',
         2,
       ),
       createOption(
         'Magically code up some image detecting software to find the source of/translate the symbol',
-        'You trust your skills to whip up a image enhancing algorithm… you create 3 months of code in 15 minutes and reveal the letter “T”',
+        'You trust your skills to whip up a image enhancing and source deconstruction algorithm… you create 3 months of code in 15 minutes and reveal the letter “T”',
         'tea_break',
         4,
       ),
@@ -267,21 +267,21 @@ const scenarios = {
     [
       createOption(
         'Get a cup of tea from the kitchen',
-        'Your thirsty and get your favourite beverage and pour it into a mug. The heat causes the mug to reveal a hidden message, a “J” printed on the side…',
+        'Your thirsty and get your favourite beverage and pour it into a mug. The heat causes the mug to reveal a hidden message, a “H” printed on the side…',
         'kata_time',
       ),
       createOption(
         'Eat some cereal!',
-        'You realised that breakfast was only 30 minutes ago and you are STARVING. You copy the hobbit’s idea and break for elevensies, as you pour your cereal, the letter “J” falls out of the packet',
+        'You realised that breakfast was only 30 minutes ago and you are STARVING. You copy the hobbits’ idea and break for elevensies, as you pour your cereal, the letter “H” falls from the packet',
         'kata_time',
         createOption(
           'Talk to one of the tutors as you get a drink of water.',
-          'You talk to the tutor who is having a nip of vodka, they’re not having a good day. In their drunken haze they spill the beans… You get the letter “J”,',
+          'You talk to the tutor who is having a nip of vodka, they’re not having a good day. In their drunken haze they spill the beans… You get the letter “H”,',
           'kata_time',
         ),
         createOption(
           'Have a nap on one of the beanbags',
-          'Your late night has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “J”',
+          'Your late night has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “H”',
           'kata_time',
         ),
       ),
@@ -289,29 +289,29 @@ const scenarios = {
   ),
 
   kata_time: createScenario(
-    'After the lecture, the tutor team have given you a list of problems to solve… But you can’t focus on them just yet, you have to find the inside source. Do you…',
+    'After the lecture, the tutor team give you a list of problems to solve… But you can’t focus on them just yet, you have to find the inside source. Do you…',
     [
       createOption(
         'Call Northcoders Help Line (NCHelp) and interrogate the tutors?',
-        'After a short while, a couple of tutors show up on your zoom call. You ask them questions about the strange goings on. In this “Spanish Inquisition” you learn about the next letter “O”...',
+        'After a short while, a couple of tutors show up on your zoom call. You give them the Spanish Inquisition about the strange goings on. They\'re no match for your questioning. You learn about the next letter “B”...',
         'lunch',
         6,
       ),
       createOption(
         'Complete the katas and look for more clues in the questions?',
-        'You’re keen sense of sniffing out bullshit/clues has rewarded you… A hidden JSON file has the letter “O” inside.',
+        'You’re keen sense of sniffing out clues has rewarded you… A hidden JSON file has the letter “B” inside.',
         'lunch',
         4,
       ),
       createOption(
         'Ask other students about anything strange happening at Northcoders?',
-        'You see a few students who have been on the course for longer, you strike up a conversation and ask them if they have seen anything strange. They say there was a big “O” in the office when they started…',
+        'You see a few students who have been on the course for longer, you strike up a conversation and ask them if they have seen anything strange. They say there was a big “B” in the office when they started…',
         'lunch',
         2,
       ),
       createOption(
         'Sit and ponder the evidence you have, narrowing down your list of suspects',
-        'As you sit, scratching your head, inspiration hits! A circular pillow has crashed into you… The next clue, an “O”...',
+        'As you sit, scratching your head, inspiration hits! A giant pillow has crashed into you, no time to worry about who threw it… The next clue, a “B”...',
         'lunch',
         8,
       ),
@@ -323,13 +323,13 @@ const scenarios = {
     [
       createOption(
         'Wait for the tutors to leave and rummage through their belongings to find clues',
-        'After breaking the law on numerous occasions, you finally find what you are looking for… A 30cm, gold plated “N”, one step closer to the source (and riches!)...',
+        'After breaking the law on numerous occasions, you finally find what you are looking for… A 30cm, gold plated “O”, one step closer to the source (and riches!)...',
         'seminar_grp',
         6,
       ),
       createOption(
         'Leave with the tutors and wait for any slips of the tongue',
-        'You join the tutors for lunch, but they’re tongue tied… Alcohol is the solution on this occasion. You get the tutors drunk and fumble out the letter “N”...',
+        'You join the tutors for lunch, but they’re tongue tied… Tequila is the solution on this occasion. You get the tutors drunk and they fumble out the letter “O”...',
         'seminar_grp',
         2,
       ),
@@ -450,6 +450,5 @@ const scenarios = {
 
 */
 
-// handleScenario("wake_up");
-handleScenario("precourse");
+handleScenario("wake_up");
 
