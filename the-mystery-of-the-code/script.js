@@ -246,7 +246,7 @@ const scenarios = {
         8,
       ),
       createOption(
-        'Take a screenshot and send it to your primary school art teacher for more thoughts',
+        'Take a screenshot and send it to your primary school art teacher for help',
         'You aren’t skilled enough to enhance your screenshot, so you call for reinforcements from you Primary school art teacher. They  message you back in 15 minutes! The letter “T”',
         'tea_break',
         2,
@@ -275,7 +275,7 @@ const scenarios = {
       ),
         createOption(
           'Talk to one of the tutors as you get a drink of water',
-          'You talk to the tutor who is having a nip of vodka, they’re not having a good day. In their drunken haze they spill the beans… You get the letter “H”,',
+          'You talk to the tutor who is having issues with the microwave... they’re not having a good day. You explain to them, to put the food in, and press start. It works! They\'re so grateful they gie you the next letter, "H"',
           'kata_time',
         ),
         createOption(
