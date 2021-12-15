@@ -1,5 +1,7 @@
 # Content for Slides
 
+## **Can copy and paste these into a slide**
+
 ## 1. Intro:
 Team Adventure Time,
 Sarah Brownlee, Poonam ??, Kev Morel, Edd Kleszcz,
