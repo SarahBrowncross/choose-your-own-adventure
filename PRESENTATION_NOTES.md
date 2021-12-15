@@ -6,7 +6,8 @@
 - A great showcase of the type of skills that a Northcoder can learn on/after the course,
 - Makes the stand memorable,
 - Can then guide people to the Adventure Quiz with a sign, e.g. Check out the Northcoders Adventure, find you coding style!
-- Interactive, people will inevitably want to play with it, generating a crowd, generating more interest
+- Interactive, people will inevitably want to play with it, generating a crowd, generating more interest,
+- Has a "wow!" factor,
 
 ## Advantages of Adventure Quiz
 - It's fun
