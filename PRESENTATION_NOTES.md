@@ -1,6 +1,7 @@
 # Notes for presenatation!
 
 ## Advantages of Adventure Quiz
+- It's fun
 - It's engaging for a potential student, they can interact with it and play it like a game,
 - It introduces them to a rough structure of a day at Northcoders,
 - We can showcase, implicitly, throughout the game what the student can get whilst studying at Northcoders,
