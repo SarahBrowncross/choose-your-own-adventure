@@ -91,13 +91,13 @@ const handleEnding = (score) => {
 
     Snag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...
     `
-  } else if (score <= 20) {
+  } else if (score < 35) {
     ending =
       'For you, coding is more than a problem, it’s a way to build relationships and learn about people as much as the code. \nYou want a team built on trust. \nThis way, when a challenge arises, you know whom best to turn to for help. You deeply understand that working in a team, you can solve any challenge. \nIn a team, you bring people together, keep morale high and understand which problem each person can work on best for the team to make solid progress. \nYou can enhance your skills by: \nUsing documentation more frequently, helping you to understand the code, \nUse Test Driven Development to keep you on track with your solutions. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
-  } else if (score <= 40) {
+  } else if (score < 50) {
     ending =
       'Coding for you is a well-oiled machine, you write your tests, you build your code, you add in any missing semicolons. Everything has its place and you will ensure that whatever you write is 100% air tight, production ready code.\nIn a team, you are vital for debugging the issues that inevitably occur that no one else can solve, \nkeeping the test suite well organised and functioning, \nand adding reliable code to the project.\nTo develop your process:\nEngage in Pair Programming, learning from others and their creative ways of solving problems,\nUse documentation to further enhance your code. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
-  } else if (score <= 60) {
+  } else if (score < 65) {
     ending =
       'As a trailblazer, your approach to a challenge is “code first, ask questions later”. No problem will hold you hostage. You will get to a solution as quickly as you can and worry about the consequences later, if there are any. \nIn a team, you help by… Keeping people moving in the right direction. Getting the code to work. And, solving challenging problems as soon as they appear. \nYou can sharpen your skills by focusing on: \nTest Driven Development, to ensure your code works all the time, \nPair Programming, learning how to explain your solution to someone else. \nSnag your free preparation resources. Tips, tricks and content to help you ace your entry challenge...';
   } else {
@@ -279,8 +279,8 @@ const scenarios = {
           'kata_time',
         ),
         createOption(
-          'Have a nap on one of the beanbags',
-          'Your late night has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “H”',
+          'Have a nap on one of the beanbags, the Northcoders Summer party was too good',
+          'Your late night at the Northcoders Summer Party has caught up with you… You go for a nap on the beanbags… Scribbled in the corner of the skirting board, the letter “H”',
           'kata_time',
         ),
       ,
