@@ -17,3 +17,12 @@
 - Email's can then be used in email marketing campaigns in the future if the candidate hasn't gone through the bootcamp and then moved to an alumni list once they have for exclusive content after the course
 - Content that we send in the first email can be personalised to some degree depending on the final result.
 - We can introduce new concepts to applicants sooner than they would've been exposed otherwise,
+
+## Materials the attendee can leave with...
+- A day in the life of a student at Northcoders - Email,
+- Tips, tricks and problems to accelarate your coding journey - Email,
+- Northcoders key values - Physical,
+- What are the best practices in Software Development, and why we teach them - Email,
+- List of jobs in tech that Northcoder graduates have/can secure - Physical,
+- Link to the Fresher's slack channels and entry challenge process (once developed) - Email,
+- Coding: What it is, what it's like, and where to start... document - Email,
