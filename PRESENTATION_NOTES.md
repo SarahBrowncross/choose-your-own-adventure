@@ -38,3 +38,27 @@
     - Will build brand awareness throughout the event,
     - Build intrigue as people will want to know what they are and what this quiz is
 
+## Examples of how an attendee might go through our process
+1.
+- Some students walk through the doors,
+- They wander around visiting a few stalls, eventually nearing the NC stall,
+- They walk past the video, distorting their image in bright, bold colours,
+- They stop and mess around in front of it for a while, having a laugh as they do so,
+- They notice that there is another game/adventure for them to try, they wander in to play it,
+- They each have a go, getting different scripts, laughing at them and comparing their coding styles at the end,
+- A few are interested in the course and want to get the extra content, put their emails in,
+- They speak to someone to learn more about Northcoders and coding in general,
+- They each get a bag with some physical takeaways with each of their coding styles on the bags and branded as NC,
+- They carry on with their day,
+
+2.
+- A student is walking around a few hours into the event,
+- They notice lots of people have NC branded bags with "I'm a social coder", "I'm a trailblazer" on them,
+- When they get to the stall, they see the big video distorter with a crowd infront of it messing around,
+- They get a chance to play around with it and have a laugh with it,
+- They see were people are getting all the branded, personalised merch, and see the adventure quiz,
+- They are already curious so decide to give it a go!
+- They go through, enjoying the ludicrous scenarios while they learn about NC,
+- At the end they are interested in learning more and pop their email in,
+- They talk to a host to get more info about coding and Northcoders,
+- They get extra info, a branded bag and information they can read
