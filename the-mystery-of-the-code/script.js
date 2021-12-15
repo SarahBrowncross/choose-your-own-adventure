@@ -229,22 +229,6 @@ const scenarios = {
       ),
     ],
   ),
-  // distracted: createScenario(
-  //   "You copy and paste the url into your browser and type in the password - you're in! You see a jumble of code and information on the screen in front of you but one button jumps out at you: master sketchbook settings...",
-  //   [
-  //     createOption(
-  //       'close the window',
-  //       "You lose your nerve and close the window. You make a cup of tea to calm yourself and by the time it's brewed it's time for the lecture to begin.",
-  //       'lecture',
-  //     ),
-  //     createOption(
-  //       'change the settings',
-  //       'You open up the master sketchbook settings and change the default colour to lime green and the style to caligraphy. Chuckling to yourself, you close the browser down and get ready to dial into the lecture',
-  //       'lecture',
-  //       5,
-  //     ),
-  //   ],
-  // ),
 
   lecture: createScenario(
     'You see a mysterious symbol in the background on one of the tutor’s zoom screens, what do you do?',
