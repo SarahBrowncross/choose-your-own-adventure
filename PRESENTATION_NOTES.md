@@ -26,3 +26,7 @@
 - List of jobs in tech that Northcoder graduates have/can secure - Physical,
 - Link to the Fresher's slack channels and entry challenge process (once developed) - Email,
 - Coding: What it is, what it's like, and where to start... document - Email,
+- Some kind of branded bag... e.g. "I'm a social coder, NC Adventure Quiz!", "I'm a trailblazer, NC Adventure Quiz!"... - Physical
+    - Will build brand awareness throughout the event,
+    - Build intrigue as people will want to know what they are and what this quiz is
+
