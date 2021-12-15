@@ -1,5 +1,13 @@
 # Notes for presenatation!
 
+## Advantages of Video
+- Instant generator of attention and curiosity,
+- It's fun,
+- A great showcase of the type of skills that a Northcoder can learn on/after the course,
+- Makes the stand memorable,
+- Can then guide people to the Adventure Quiz with a sign, e.g. Check out the Northcoders Adventure, find you coding style!
+- Interactive, people will inevitably want to play with it, generating a crowd, generating more interest
+
 ## Advantages of Adventure Quiz
 - It's fun
 - It's engaging for a potential student, they can interact with it and play it like a game,
